@@ -1,46 +1,66 @@
-{% set version = "0.20-34" %}
+{% set version = '0.20-35' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
 
 package:
   name: r-lattice
-  version: {{ version.replace("-", "_") }}
+  version: {{ version|replace("-", "_") }}
 
 source:
   fn: lattice_{{ version }}.tar.gz
   url:
-    - http://cran.r-project.org/src/contrib/lattice_{{ version }}.tar.gz
-    - http://cran.r-project.org/src/contrib/Archive/lattice/lattice_{{ version }}.tar.gz
-  sha256: 4a1a1cafa9c6660fb9a433b3a51898b8ec8e83abf143c80f99e3e4cf92812518
+    - {{ cran_mirror }}/src/contrib/lattice_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/lattice/lattice_{{ version }}.tar.gz
+  sha256: 0829ab0f4dec55aac6a73bc3411af68441ddb1b5b078d680a7c2643abeaa965d
 
 build:
+  merge_build_host: True  # [win]
   number: 0
-  skip: True  # [win32]
-  script: R CMD INSTALL --build .
+
   rpaths:
     - lib/R/lib/
     - lib/
 
-requirements:  # [not win32]
-  build:  # [not win32]
-    - r-base  # [not win32]
-    - posix  # [win64]
-    - m2w64-toolchain  # [win64]
-    - gcc  # [not win]
-  run:  # [not win32]
-    - r-base  # [not win32]
+requirements:
+  build:
+    - {{ compiler('c') }}        # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
+
+  host:
+    - r-base
+
+  run:
+    - r-base
+    - {{native}}gcc-libs         # [win]
 
 test:
   commands:
-    - R -e "library('lattice')"  # [not win]
-    - R -e \"library('lattice')\"  # [win]
+    - $R -e "library('lattice')"           # [not win]
+    - "\"%R%\" -e \"library('lattice')\""  # [win]
 
 about:
   home: http://lattice.r-forge.r-project.org/
   license: GPL (>= 2)
-  summary: 'A powerful and elegant high-level data visualization system inspired by Trellis graphics,
+  summary: A powerful and elegant high-level data visualization system inspired by Trellis graphics,
     with an emphasis on multivariate data. Lattice is sufficient for typical graphics
     needs, and is also flexible enough to handle most nonstandard requirements. See
-    ?Lattice for an introduction.'
+    ?Lattice for an introduction.
+  license_family: GPL3
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
+  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
 
 extra:
   recipe-maintainers:
     - ocefpaf
+    - johanneskoester
+    - bgruening
+    - daler
+    - jdblischak
+    - cbrueffer
+    - dbast
