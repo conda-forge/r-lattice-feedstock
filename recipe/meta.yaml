@@ -1,4 +1,4 @@
-{% set version = '0.20-35' %}
+{% set version = '0.20-38' %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -12,7 +12,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/lattice_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/lattice/lattice_{{ version }}.tar.gz
-  sha256: 0829ab0f4dec55aac6a73bc3411af68441ddb1b5b078d680a7c2643abeaa965d
+  sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 
 build:
   merge_build_host: True  # [win]
