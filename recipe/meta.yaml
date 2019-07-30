@@ -7,7 +7,6 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: lattice_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/lattice_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/lattice/lattice_{{ version }}.tar.gz
@@ -15,14 +14,14 @@ source:
 
 build:
   merge_build_host: True  # [win]
-  number: 1001
+  number: 1002
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('c') }}              # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
     - {{posix}}filesystem        # [win]
     - {{posix}}make
@@ -54,12 +53,6 @@ extra:
   recipe-maintainers:
     - conda-forge/r
     - ocefpaf
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
-    - cbrueffer
-    - dbast
 
 # Package: lattice
 # Version: 0.20-38
