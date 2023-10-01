@@ -3,6 +3,7 @@ About r-lattice-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-lattice-feedstock/blob/main/LICENSE.txt)
 
+
 About r-lattice
 ---------------
 
@@ -11,6 +12,7 @@ Home: http://lattice.r-forge.r-project.org/
 Package license: GPL-2.0-or-later
 
 Summary: A powerful and elegant high-level data visualization system inspired by Trellis graphics, with an emphasis on multivariate data. Lattice is sufficient for typical graphics needs, and is also flexible enough to handle most nonstandard requirements. See ?Lattice for an introduction.
+
 About r-lattice
 ---------------
 
