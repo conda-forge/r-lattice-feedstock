@@ -1,15 +1,15 @@
-{% set version = "0.22-9" %}
+{% set version = "0.23-1" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
   name: r-lattice
-  version: {{ version|replace("-", "_") }}
+  version: "{{ version|replace('-', '_') }}"
 
 source:
   url:
     - {{ cran_mirror }}/src/contrib/lattice_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/lattice/lattice_{{ version }}.tar.gz
-  sha256: b72ad4ed2e5269fa7cf668e46f83a9b5d9d5f8fdcbc5b9886531ca19dffca4ba
+  sha256: 34e9b2fc023582c4246959b543c331233c62118efd922bcc1ba72b4888adc590
 
 build:
   number: 0
